@@ -4,7 +4,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Producto {
     // atributos
-    private ReentrantLock cerrojo;
+    private ReentrantLock cerrojo; //Objeto para controlar la seccion critica al usarse los array de manera simultanea.
     private PrecioProducto[] precioProv;
     private int sigProveedor;
   
@@ -20,7 +20,7 @@ public class Producto {
         this.precioProv = precioProv;
         this.sigProveedor = sigProducto;
     }
-
+    //getters y setters
     public int getSigProveedor() {
         return sigProveedor;
     }
@@ -29,7 +29,7 @@ public class Producto {
         this.sigProveedor = sigProducto;
     }
 
-    // getter y setters
+    
     public PrecioProducto[] getPrecioProv() {
         accederSeccionCritica();
         try{
@@ -42,7 +42,7 @@ public class Producto {
 
     // metodos solicitados
     public void addProducto(String nombreProveedor, float precio) {
-        accederSeccionCritica();
+        accederSeccionCritica();//accedemos a la seccion critica  bloquenado la entrada desde cualquier otro lugar .
         try {
             if (sigProveedor == precioProv.length) {
                 System.out.println("No se puede añadir el producto el almacen esta lleno");
@@ -65,8 +65,8 @@ public class Producto {
             } else {
                 for (int i = 0; i < sigProveedor; i++) {
                     System.out.println("El proveedor: " + precioProv[i].getProovedor()
-                            + " ofrece el producto "
-                            + precioProv[i].getPrecio() + " €");
+                            + " ofrece el producto a "
+                            + precioProv[i].getPrecio() + " euros");
                 }
             }
         } finally {

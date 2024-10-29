@@ -7,8 +7,9 @@ public class GestionAlmacen extends Thread {
         this.producto=producto;
         this.numPrecios=numPrecios;
     }
+    @Override
     public void run (){
-        PrecioProducto precioProducto;
+        
         for (int i = 0; i < numPrecios; i++) {
             
             
